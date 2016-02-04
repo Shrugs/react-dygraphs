@@ -37,14 +37,7 @@ const options = {
     drawPoints: {type: p.boolean},
     errorBars: {type: p.boolean},
     file: {
-        type: p.oneOfType([
-            p.string /* CSV or URL */ ,
-            p.arrayOf(p.arrayOf(p.oneOfType([
-                p.instanceOf(Date),
-                p.number
-            ]))),
-            p.func
-        ]).isRequired,
+        type: p.any.isRequired,
         rename: 'data',
         hideOnInit: true
     },
