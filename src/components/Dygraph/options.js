@@ -115,6 +115,7 @@ const options = {
     yRangePad: {type: p.number},
     ylabel: true,
     zoomCallback: {type: p.func, rename: 'onZoom'},
+    selection: {type: p.array}
 };
 
 type PropConfig = boolean | {

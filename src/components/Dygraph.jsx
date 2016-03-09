@@ -34,20 +34,26 @@ export default class Dygraph extends React.Component {
     }
 
     componentDidMount() {
-        const {known: initAttrs} = spreadKnownProps(this.props, true);
+        const {known: {selection, ...initAttrs}} = spreadKnownProps(this.props, true);
         this._interactionProxy._target =
             initAttrs.interactionModel || DygraphBase.Interaction.defaultModel;
         initAttrs.interactionModel = this._interactionProxy;
         this._dygraph = new DygraphBase(this.refs.root, this.props.data, initAttrs);
+        if(typeof selection !== 'undefined') {
+            this._dygraph.setSelection(...selection);
+        }
     }
 
     componentWillUpdate(nextProps/*, nextState*/) {
         if (this._dygraph) {
-            const {known: updateAttrs} = spreadKnownProps(nextProps, false);
+            const {known: {selection, ...updateAttrs}} = spreadKnownProps(nextProps, false);
             this._interactionProxy._target =
                 updateAttrs.interactionModel || DygraphBase.Interaction.defaultModel;
             updateAttrs.interactionModel = this._interactionProxy;
             this._dygraph.updateOptions(updateAttrs);
+            if(typeof selection !== 'undefined') {
+                this._dygraph.setSelection(...selection);
+            }
         }
     }
 
