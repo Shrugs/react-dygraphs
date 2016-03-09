@@ -44,6 +44,10 @@ export default class Dygraph extends React.Component {
         }
     }
 
+    getDygraph() {
+        return this._dygraph;
+    }
+
     componentWillUpdate(nextProps/*, nextState*/) {
         if (this._dygraph) {
             const {known: {selection, ...updateAttrs}} = spreadKnownProps(nextProps, false);
