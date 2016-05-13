@@ -4,11 +4,15 @@ import {propTypes as dygraphPropTypes, spreadProps as spreadKnownProps} from './
 
 class InteractionModelProxy {
     constructor() {
-        for (const method of ['mousedown', 'touchstart', 'touchmove', 'touchend', 'dblclick']) {
+        const interactionModelHandlers = ['mousedown', 'touchstart', 'touchmove', 'touchend', 'dblclick', 'mousewheel'];
+        for (const method of interactionModelHandlers) {
             const thisProxy = this;
             this[method] = function (...args) {
                 const calledContext = this;
-                return thisProxy._target[method].call(calledContext, ...args);
+                const handlerDefinedInInteractionModel = thisProxy._target[method];
+                if(handlerDefinedInInteractionModel) {
+                    return thisProxy._target[method].call(calledContext, ...args);
+                }
             };
         }
         ['willDestroyContextMyself'].forEach(prop => {
