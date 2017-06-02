@@ -42,7 +42,7 @@ export default class Dygraph extends React.Component {
         this._interactionProxy._target =
             initAttrs.interactionModel || DygraphBase.Interaction.defaultModel;
         initAttrs.interactionModel = this._interactionProxy;
-        this._dygraph = new DygraphBase(this.refs.root, this.props.data, initAttrs);
+        this._dygraph = new DygraphBase(this.root, this.props.data, initAttrs);
         if(typeof selection !== 'undefined') {
             this._dygraph.setSelection(...selection);
         }
@@ -77,7 +77,7 @@ export default class Dygraph extends React.Component {
     render() {
         return (
             <div
-                ref='root'
+                ref={(root) => this.root = root}
                 style={this.props.style}
             />
         );
